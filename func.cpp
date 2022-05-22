@@ -8,9 +8,7 @@
 
 using namespace std;
 
-void read_file(vector<Order> &Ord, string Sizes[], string Providers[], int size_of_Sizes, int size_of_Providers){
-    string file_name = "input.txt";
-
+void read_file(string file_name, vector<Order> &Ord, string Sizes[], string Providers[]){
     ifstream file;
     file.open(file_name);
 
@@ -23,7 +21,7 @@ void read_file(vector<Order> &Ord, string Sizes[], string Providers[], int size_
                 Order order;
                 order.line = line;
                 Ord.push_back(order);
-                parse(Ord, line, line_nr, Sizes, Providers, size_of_Sizes, size_of_Providers);
+                parse(Ord, line, line_nr, Sizes, Providers);
                 line_nr++;
             }
             else{
@@ -38,7 +36,7 @@ void read_file(vector<Order> &Ord, string Sizes[], string Providers[], int size_
 
 }
 
-void parse(vector<Order> &Ord, string line, int line_nr, string Sizes[], string Providers[], int size_of_Sizes, int size_of_Providers){
+void parse(vector<Order> &Ord, string line, int line_nr, string Sizes[], string Providers[]){
     char delim = '-';
     string temp;
     int year, month, day;
@@ -49,8 +47,6 @@ void parse(vector<Order> &Ord, string line, int line_nr, string Sizes[], string 
 
     // parsing year:
     temp = line.substr(parse_progress, line.find(delim));
-
-    //year = stoi(temp);
 
     stringstream stream(temp);
     if(!(stream >> year)){
@@ -136,11 +132,11 @@ void parse(vector<Order> &Ord, string line, int line_nr, string Sizes[], string 
 
     // if line is correct:
     Ord.at(line_nr).month = month;
-    Ord.at(line_nr).provider = provider;
     Ord.at(line_nr).size = size;
+    Ord.at(line_nr).provider = provider;
 }
 
-void set_prices(vector<Order> &Ord, string Sizes[], string Providers[], float Prices[size_of_Providers][size_of_Sizes], int size_of_Sizes, int size_of_Providers){
+void set_prices(vector<Order> &Ord, string Sizes[], string Providers[], float Prices[size_of_Providers][size_of_Sizes]){
     float limit = 10;   // Accumulated discounts must not exceed 10 in a single month
     float accum_dic = 0;
     int counter_L = 0;  // every third shipping is free
@@ -159,7 +155,7 @@ void set_prices(vector<Order> &Ord, string Sizes[], string Providers[], float Pr
         if(i > 0){      
             if(Ord.at(i).month != Ord.at(i-1).month){
                 accum_dic = 0;
-                counter_L = 0;
+                counter_L = 1;
             }
         }
 
@@ -196,7 +192,7 @@ void set_prices(vector<Order> &Ord, string Sizes[], string Providers[], float Pr
 
                         else if(Sizes[s] == "L"){        // every third shipping is free, but only once a month
                             if(accum_dic < limit){
-                                if(counter_L % 3 == 0){
+                                if(counter_L % 3 == 0 && counter_L > 0){
                                     float temp = min((limit - accum_dic), Prices[p][s]);
                                     Ord.at(i).disc = temp;
                                     Ord.at(i).price = Prices[p][s] - temp;

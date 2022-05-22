@@ -16,11 +16,11 @@ struct Order{
 const int size_of_Sizes = 3;
 const int size_of_Providers = 2;
 
-void read_file(vector<Order> &Ord, string Sizes[], string Providers[], int size_of_Sizes, int size_of_Providers);
+void read_file(string file_name, vector<Order> &Ord, string Sizes[], string Providers[]);
 
-void parse(vector<Order> &Ord, string line, int line_nr, string Sizes[], string Providers[], int size_of_Sizes, int size_of_Providers);
+void parse(vector<Order> &Ord, string line, int line_nr, string Sizes[], string Providers[]);
 
-void set_prices(vector<Order> &Ord, string Sizes[], string Providers[], float Prices[size_of_Providers][size_of_Sizes], int size_of_Sizes, int size_of_Providers);
+void set_prices(vector<Order> &Ord, string Sizes[], string Providers[], float Prices[size_of_Providers][size_of_Sizes]);
 
 void print_results(vector<Order> Ord);
 

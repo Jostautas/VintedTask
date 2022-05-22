@@ -2,6 +2,11 @@
 
 Assignment from vinted, junior
 
+#HOW TO USE:
+1. Enter data into input.txt file in the same directory as other source files.
+2. in terminal write "make" and "./main".
+To run tests, write "make test" and "./test".
+
 Problem
 ----------------------------
 Here, at Vinted, our members call themselves 'Vinties' and shopping at Vinted even has its own term - 'to vint'. And our member does vint a lot. Naturally, when something is purchased, it has to be shipped and Vinted provides various shipping options to its members across the globe. However, let's focus on France. In France, it is allowed to ship via either 'Mondial Relay' (MR in short) or 'La Poste' (LP). While 'La Poste' provides usual courier delivery services, 'Mondial Relay' allows you to drop and pick up a shipment at a so-called drop-off point, thus being less convenient, but cheaper for larger packages.
